@@ -2,7 +2,7 @@ import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
 from numpy import Infinity, Inf, shape
-from scipy.spatial.distance import minkowski
+from scipy.spatial.distance import minkowski, jaccard
 from Crypto.Util.number import size
 
 class neuron(object):
@@ -42,7 +42,9 @@ class gsomap(object):
         plt.show()
 
 
-    def __init__(self,SP=0.5,dims=3,nr_s=6,lr_s=0.9):
+    def __init__(self,SP=0.5,dims=3,nr_s=6,lr_s=0.9,boolean=False):
+        self.boolean=boolean
+
         self.dim = dims
         for i in range(4):
             x=i/2
@@ -66,16 +68,25 @@ class gsomap(object):
             self.nr=self.nr*self.lr/k
             if self.nr <=1 :
                 return
+            #normalization attempt:
+            #for hsk in self.map_neurons.keys():
+            #    neu = self.map_neurons[hsk]
+            #    neu.weight_vs=0.5*neu.weight_vs
+            #    self.map_neurons[hsk]=neu
+
         return
 
 
- #   def adjust(self,bmu_coord_nparr,neu):
- #       n=neuron(neu)
-  #      if minkowski(bmu_coord_nparr, n.coords(), 2)<self.nr:
-   #         nei_coords = np.array([str(n.x_c)+str(n.y_c-1), str(n.x_c)+str(n.y_c+1), str(n.x_c-1)+str(n.y_c), str(n.x_c+1)+str(n.y_c)] )
-    #        for nei_coord in nei_coords:
-     #           neu = self.map_neurons[nei_coord]
-      #          self.adjust(bmu_coord_nparr, neu)
+    def jaccard_sim(self,nparray1, nparray2,sym=True):
+
+        b1=nparray1.astype(bool)
+        b2=nparray2.astype(bool)
+        if sym:
+            out = len(np.where(np.logical_and(b1,b2))[0])+len(np.where(np.logical_or(b1,b2)==False)[0])
+        else:
+            out= len(np.where(np.logical_and(b1,b2))[0])
+
+        return out/len(b1)
 
 
 
@@ -121,12 +132,18 @@ class gsomap(object):
         for neu in self.map_neurons.itervalues():
             #print "input: "+str(input_nparray)
             #print "neuron: "+str (neu.weight_vs)
-            cand=minkowski(input_nparray, neu.weight_vs, 2)
-            if minDist> cand:
+            if self.boolean:
+                cand = jaccard(input_nparray, neu.weight_vs)
+                if minDist> cand:
+                    minDist = cand
+                    candidate= neu
+            else:
+                cand=minkowski(input_nparray, neu.weight_vs, 2)
+                if minDist> cand:
                 #print "mindist:",minDist
                 #print "cand:",cand
-                minDist = cand
-                candidate= neu
+                    minDist = cand
+                    candidate= neu
 
                 #print "candidate'scoords",candidate.coords()
         return  candidate
