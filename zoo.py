@@ -20,8 +20,8 @@ print features.shape
 
 positions = np.ndarray(shape=(101,2))
 
-gmap = gsomap(SP=0.1,dims=16,nr_s=10,lr_s=0.9)
-gmap.process_batch(features,50)
+gmap = gsomap(SP=0.9,dims=16,nr_s=4,lr_s=0.9,fd=0.99999)
+gmap.process_batch(features,750)
 
 
 for i in range(positions.shape[0]):
@@ -49,7 +49,7 @@ for label, x, y in zip(labels, positions[:, 0], positions[:, 1]):
         arrowprops = dict(arrowstyle = '->', connectionstyle = 'arc3,rad=0'))
 
 plt.show()
-#gmap.viewmap()
+gmap.viewmap()
 
 #print gmap.map_neurons['010'].weight_vs
 
