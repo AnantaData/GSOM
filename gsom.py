@@ -11,11 +11,15 @@ class neuron(object):
     y_c = 0
     res_err = 0
     weight_vs=None
+    #new entry
+    coassoc_vs = None
 
     def __init__(self,x,y,dims):
         self.x_c=x
         self.y_c=y
         self.weight_vs=np.random.random(size=dims)
+        self.coassoc_vs=np.zeros(shape=(101))
+        #print self.coassoc_vs
        # print str(x)+","+str(y)+":"+str(self.weight_vs)
 
     def coords(self):
@@ -65,7 +69,16 @@ class gsomap(object):
         for j in range(k):
             for i in range(batch_np_array.shape[0]):
                 tinp = batch_np_array[i]
-                self.process_input(tinp)
+                bcoords=self.process_input(tinp)
+                bhash=str(bcoords[0])+""+str(bcoords[1])
+                winner = self.map_neurons[bhash]
+
+                #here's the tricky part
+                score= minkowski(winner.weight_vs,tinp,2)#/self.dim
+                winner.coassoc_vs[i]= score
+                #print winner.coassoc_vs
+                self.map_neurons[bhash]=winner
+
             self.nr=self.nr*self.lr
             self.lr = self.lr*self.lrr*(1-3.8/len(self.map_neurons.values()))
             if self.nr <=4 :
@@ -114,7 +127,7 @@ class gsomap(object):
             left=str(int(neu.x_c)-1)+str(neu.y_c)
             right=str(int(neu.x_c)+1)+str(neu.y_c)
             nei_coords = np.array([down, up , left , right ] )
-            nei_coordi = np.array([[(neu.x_c),(int(neu.y_c)-1)], [(neu.x_c),(int(neu.y_c)+1)], [(int(neu.x_c)-1),(neu.y_c)], [(int(neu.x_c)+1),str(neu.y_c)]] )
+            nei_coordi = np.array([[(neu.x_c),(int(neu.y_c)-1)], [(neu.x_c),(int(neu.y_c)+1)], [(int(neu.x_c)-1),(neu.y_c)], [(int(neu.x_c)+1),int(neu.y_c)]] )
             p =0
             for coord in nei_coords:
                 n=None
