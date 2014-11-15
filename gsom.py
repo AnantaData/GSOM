@@ -15,6 +15,10 @@ class neuron(object):
     coassoc_vs = None
 
     def __init__(self,x,y,dims):
+        """
+
+        :rtype : object
+        """
         self.x_c=x
         self.y_c=y
         self.weight_vs=np.random.random(size=dims)
@@ -135,11 +139,30 @@ class gsomap(object):
                     n= self.map_neurons[coord]
                 except KeyError:
                     nwron=neuron(nei_coordi[p][0], nei_coordi[p][1], self.dim)
+                    new_weight = 0
                     #case a) new node has two consecutive nodes on one of its sides
                     #tiroshan and lakmal please implement the code here
                     #case b) between two old nodes
-                    nwron.weight_vs=np.ndarray(shape=(self.dim))
-                    nwron.weight_vs.fill(0.5)
+                    new_weight_b = self.type_b_weight_init(p,neu)
+                    new_weight_a = self.type_a_weight_init(p,neu)
+                    new_weight_c = self.type_c_weight_init(p,neu)
+
+                    if new_weight_b.all() ==0:
+                        if new_weight_a.all() == 0:
+                            if new_weight_c.all() == 0:
+                                print "c==0"
+                                new_weight = np.ndarray(shape=(self.dim))
+                                new_weight.fill(0.5)
+                            else:
+                                new_weight = new_weight_c
+                        else:
+                            new_weight = new_weight_a
+                    else:
+                        new_weight = new_weight_b
+
+                    # nwron.weight_vs=np.ndarray(shape=(self.dim))
+                    # nwron.weight_vs.fill(0.5)
+                    nwron.weight_vs = new_weight
                     n=nwron
                 n.res_err+=self.fd*neu.res_err
                 self.map_neurons[coord]=n
@@ -172,6 +195,71 @@ class gsomap(object):
                 #print "candidate'scoords",candidate.coords()
         return  candidate
 
+    def type_b_weight_init(self, side, neuron):
+        if side == 0:
+            next_watch = str(int(neuron.x_c))+str(int(neuron.y_c-2))
+        elif side == 1:
+            next_watch = str(int(neuron.x_c))+str(int(neuron.y_c+2))
+        elif side == 2:
+            next_watch = str(int(neuron.x_c-2))+str(int(neuron.y_c))
+        else :
+            next_watch = str(int(neuron.x_c+2))+str(int(neuron.y_c))
+
+        try:
+            b_type_nwron = self.map_neurons[next_watch]
+            new_weight = (b_type_nwron.weight_vs+neuron.weight_vs)/2
+        except:
+            new_weight = np.ndarray(shape=(self.dim))
+            new_weight.fill(0)
+        return new_weight
+
+    def type_a_weight_init(self, side, neuron):
+        if side == 0:
+            next_watch = str(int(neuron.x_c))+str(int(neuron.y_c+1))
+        elif side == 1:
+            next_watch = str(int(neuron.x_c))+str(int(neuron.y_c-1))
+        elif side == 2:
+            next_watch = str(int(neuron.x_c+1))+str(int(neuron.y_c))
+        else :
+            next_watch = str(int(neuron.x_c-1))+str(int(neuron.y_c))
+
+        try:
+            a_type_nwron = self.map_neurons[next_watch]
+            if a_type_nwron.weight_vs.all() > neuron.weight_vs.all():
+                new_weight = neuron.weight_vs - (a_type_nwron.weight_vs - neuron.weight_vs)
+            else:
+                new_weight = neuron.weight_vs + (neuron.weight_vs - a_type_nwron.weight_vs)
+        except:
+            new_weight = np.ndarray(shape=(self.dim))
+            new_weight.fill(0)
+        return new_weight
+
+    def type_c_weight_init(self, side, neuron):
+        if side == 0 or side == 1:
+            next_watch_1 = str(int(neuron.x_c+1))+str(int(neuron.y_c))
+            next_watch_2 = str(int(neuron.x_c-1))+str(int(neuron.y_c))
+        else:
+            next_watch_1 = str(int(neuron.x_c))+str(int(neuron.y_c+1))
+            next_watch_2 = str(int(neuron.x_c))+str(int(neuron.y_c-1))
+
+        try:
+            c_type_nwron = self.map_neurons[next_watch_1]
+            if c_type_nwron.weight_vs.all() > neuron.weight_vs.all():
+                new_weight = neuron.weight_vs - (c_type_nwron.weight_vs - neuron.weight_vs)
+            else:
+                new_weight = neuron.weight_vs + (neuron.weight_vs - c_type_nwron.weight_vs)
+        except:
+            try:
+                c_type_nwron = self.map_neurons[next_watch_2]
+                if c_type_nwron.weight_vs.all() > neuron.weight_vs.all():
+                    new_weight = neuron.weight_vs - (c_type_nwron.weight_vs - neuron.weight_vs)
+                else:
+                    new_weight = neuron.weight_vs + (neuron.weight_vs - c_type_nwron.weight_vs)
+            except:
+                new_weight = np.ndarray(shape=(self.dim))
+                new_weight.fill(0)
+
+        return new_weight
 
 
 

@@ -49,7 +49,7 @@ for label, x, y in zip(labels, positions[:, 0], positions[:, 1]):
         arrowprops = dict(arrowstyle = '->', connectionstyle = 'arc3,rad=0'))
 
 plt.show()
-gmap.viewmap()
+# gmap.viewmap()
 
 #print gmap.map_neurons['010'].weight_vs
 
