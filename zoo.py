@@ -13,10 +13,11 @@ names = data[:,0]
 names= np.column_stack((names,data[:,-1]))
 
 features= data[:,:-1]
+print features
 features = features[:,1:].astype(int)
 
 
-print features.shape
+
 
 positions = np.ndarray(shape=(101,2))
 
@@ -33,6 +34,9 @@ names=np.column_stack((names,positions[:,0],positions[:,1]))
 #print names
 
 classification=np.array(['mammal','bird','reptile','fish','amphibian','insect','seacreature'])
+
+
+
 labels = names[:,0]
 #for i in range(labels.shape[0]):
 #    labels[i]=classification[int(labels[i])-1]
@@ -48,6 +52,27 @@ for label, x, y in zip(labels, positions[:, 0], positions[:, 1]):
         bbox = dict(boxstyle = 'round,pad=0.5', fc = 'yellow', alpha = 0.5),
         arrowprops = dict(arrowstyle = '->', connectionstyle = 'arc3,rad=0'))
 
+i=1
+for neu in gmap.map_neurons.values():
+    si = np.linalg.norm(neu.coassoc_vs)
+    if si > 0:
+        print "coassoc:"+str(i)+" :"+str(si)
+        i=i+1
+
+print "eliminated "+str(len(gmap.map_neurons)-i)+" out of "+str(len(gmap.map_neurons))+" neurons!"
+
+plt.show()
+
+colors={1:"green", 2:"yellow", 3:"black", 4:"blue", 5:"red", 6:"orange", 7:"gray"}
+colorlist=[]
+for x in names[:,1]:
+    colorlist.append(colors[int(x)])
+
+colorlist=np.array(colorlist)
+
+sizes = [20*2**2 for n in range(len(names[:,1]))]
+
+plt.scatter(positions[:,0],positions[:,1],c=colorlist,s=sizes)
 plt.show()
 # gmap.viewmap()
 
