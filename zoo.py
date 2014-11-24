@@ -13,10 +13,11 @@ names = data[:,0]
 names= np.column_stack((names,data[:,-1]))
 
 features= data[:,:-1]
+print features
 features = features[:,1:].astype(int)
 
 
-print features.shape
+
 
 positions = np.ndarray(shape=(101,2))
 
@@ -73,7 +74,7 @@ sizes = [20*2**2 for n in range(len(names[:,1]))]
 
 plt.scatter(positions[:,0],positions[:,1],c=colorlist,s=sizes)
 plt.show()
-gmap.viewmap()
+# gmap.viewmap()
 
 #print gmap.map_neurons['010'].weight_vs
 

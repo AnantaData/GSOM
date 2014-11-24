@@ -23,7 +23,7 @@ class neuron(object):
         self.x_c=x
         self.y_c=y
         self.weight_vs=np.random.random(size=dims)
-        self.coassoc_vs=np.zeros(shape=(101))
+        self.coassoc_vs=np.zeros(shape=(150))
         #print self.coassoc_vs
        # print str(x)+","+str(y)+":"+str(self.weight_vs)
 
