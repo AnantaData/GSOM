@@ -1,3 +1,5 @@
+__author__ = 'laksheen'
+
 import numpy as np
 from gsom import gsomap
 import matplotlib.pyplot as plt
@@ -42,47 +44,71 @@ for neu in gmap4.map_neurons.values():
     coassocs[4,str(neu.coords()[0])+""+str(neu.coords()[1])]=neu.coassoc_vs
 
 usage_threshold = 0.1
+#used ={}
 
 for map_coords in coassocs.keys():
 
     if np.linalg.norm(coassocs[map_coords]) < usage_threshold:
         del coassocs[map_coords]
 
+
 #used=np.array(used)
 ############ the new coassociation vectors are good enough I guess.. Let's go for the similarity measure and stuff
 
-fusion_threshold = 0.1
+fusion_threshold = 0.3
 
-#n = len(coassocs.keys())
-#incidence_matrix = np.zeros(shape=(n,n))
+n = len(coassocs.keys())
+incidence_matrix = np.empty(shape=(n,n))
+incidence_matrix[:] = -1
 
-print incidence_matrix.shape
+
+#print incidence_matrix
+
+#print len(incidence_matrix)
 
 groups=np.zeros(len(coassocs.keys()))
 
-group_num =1
-
 for i in range(len(coassocs.keys())-1):
-    found=False
+
     checkee = coassocs[coassocs.keys()[i+1]]
-    for j in range(i):
-        if np.linalg.norm(checkee-used[used.keys()[j]]) > fusion_threshold:
-            groups[i+1]=groups[j]
-            found=True
-    if found == False:
-        group_num+=1
-        groups[i+1]=group_num
 
+    incidence_matrix[i][i] = 0
 
-#print len(np.unique(groups))
+    if i == len(coassocs.keys())-2:
+        incidence_matrix[i+1][i+1] = 0
+
+    for j in range(i+1):
+        score = np.linalg.norm(checkee-coassocs[coassocs.keys()[j]])
+        if score < fusion_threshold and score >= 0:
+            incidence_matrix[j][i+1] = score
+
+#print incidence_matrix[len(incidence_matrix)-1,:]
+
+for k in range(len(incidence_matrix)):
+    if(k==0):
+        group_num =1
+    else:
+        if(groups[k]==0):
+            group_num +=1
+        else:
+            group_num = groups[k]
+
+    for j in range(k,len(incidence_matrix)):
+        if (incidence_matrix[k][j] >= 0):
+            groups[j] = group_num
+
+print groups
+
+print len(np.unique(groups))
 
 clusters = {}
 
-for i in range(len(used.keys())):
-    map_no = used.keys()[i][0]
-    coorstr = used.keys()[i][1]
+for i in range(len(coassocs.keys())):
+    map_no = coassocs.keys()[i][0]
+    coorstr = coassocs.keys()[i][1]
     weight=None
     gmap = None
+
     if map_no == 1:
         gmap=gmap1
     elif map_no == 2:
@@ -100,13 +126,11 @@ for i in range(len(used.keys())):
     temp.append(weight)
     clusters[groups[i]-1]=temp
 
-
-
 #print len(clusters[10])
 w = []
 
 for i in clusters.keys():
     w.append( sum(np.array(clusters[i]))/np.array(clusters[i]).shape[0] )
 
-print np.array(w).shape
+print w
 
