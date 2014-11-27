@@ -1,3 +1,5 @@
+__author__ = 'laksheen'
+
 #######################################################################################
 import numpy as np
 import pandas as pd
@@ -14,6 +16,7 @@ class neuron(object):
     weight_vs=None
     #new entry
     coassoc_vs = None
+    binarycoassoc_vs = None
 
     def __init__(self,x,y,dims):
         """
@@ -24,6 +27,7 @@ class neuron(object):
         self.y_c=y
         self.weight_vs=np.random.random(size=dims)
         self.coassoc_vs=np.zeros(shape=(150))
+        self.binarycoassoc_vs=np.zeros(shape=150)
         #print self.coassoc_vs
        # print str(x)+","+str(y)+":"+str(self.weight_vs)
 
@@ -81,6 +85,7 @@ class gsomap(object):
                 #here's the tricky part
                 score= minkowski(winner.weight_vs,tinp,2)#/self.dim
                 winner.coassoc_vs[i]= score
+                winner.binarycoassoc_vs[i]=1
                 #print winner.coassoc_vs
                 self.map_neurons[bhash]=winner
 
