@@ -3,6 +3,7 @@ __author__ = 'laksheen'
 import numpy as np
 from gsom import gsomap
 import matplotlib.pyplot as plt
+
 data = np.loadtxt("zoo.data.txt",dtype=str,delimiter=",")
 
 data = np.array(data)

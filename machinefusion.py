@@ -1,4 +1,5 @@
 from sklearn.metrics import jaccard_similarity_score
+from sklearn.metrics.pairwise import cosine_similarity
 import numpy as np
 import numpy.random as npr
 from gsom import gsomap
@@ -30,13 +31,19 @@ def _get_coassoc_vec(trained_gsoms):
         i+=1
     return coassoc_vec
 
-def _filter_from_usage_threshold(coassoc_vec, usage_threshold):
+def _filter_from_usage_threshold_binary_sum(coassoc_vec, usage_threshold):
     for map_coords in coassoc_vec.keys():
         if np.sum(coassoc_vec[map_coords].binarycoassoc_vs) < usage_threshold:
             del coassoc_vec[map_coords]
     return coassoc_vec
 
-def _get_incident_matrix(coassoc_vec, fusion_threshold):
+def _filter_from_usage_threshold_euclidean_score(coassoc_vec, usage_threshold):
+    for map_coords in coassoc_vec.keys():
+        if np.linalg.norm(coassoc_vec[map_coords]) > usage_threshold:
+            del coassoc_vec[map_coords]
+    return coassoc_vec
+
+def _get_incident_matrix_binary(coassoc_vec, fusion_threshold):
     n = len(coassoc_vec.keys())
     incidence_matrix = np.zeros(shape=(n,n))
     for i in range(len(coassoc_vec.keys())-1):
@@ -50,6 +57,24 @@ def _get_incident_matrix(coassoc_vec, fusion_threshold):
         for j in range(i+1):
             neu = coassoc_vec[coassoc_vec.keys()[j]]
             if jaccard_similarity_score(checkee.binarycoassoc_vs,neu.binarycoassoc_vs) > fusion_threshold :
+                incidence_matrix[j][i+1] = 1
+
+    return incidence_matrix
+
+def _get_incident_matrix_cosine_similarity(coassoc_vec, fusion_threshold):
+    n = len(coassoc_vec.keys())
+    incidence_matrix = np.zeros(shape=(n,n))
+    for i in range(len(coassoc_vec.keys())-1):
+        checkee = coassoc_vec[coassoc_vec.keys()[i+1]]
+
+        if i == len(coassoc_vec.keys())-2:
+            incidence_matrix[i+1][i+1] = 1
+
+        incidence_matrix[i][i] = 1
+
+        for j in range(i+1):
+            neu = coassoc_vec[coassoc_vec.keys()[j]]
+            if cosine_similarity(checkee.coassoc_vs,neu.coassoc_vs) > fusion_threshold :
                 incidence_matrix[j][i+1] = 1
 
     return incidence_matrix
@@ -129,8 +154,10 @@ def _get_max_similarity(list1,list2, coassoc_vec):
 def machine_fusion_gsom(data, gsom, no_samples, usage_threshold, fusion_threshold,connection_threshold):
     trained_gsoms       = _get_trained_models(gsom,no_samples,data)
     coassoc_vec         = _get_coassoc_vec(trained_gsoms)
-    coassoc_vec         = _filter_from_usage_threshold(coassoc_vec,usage_threshold)
-    incident_mat        = _get_incident_matrix(coassoc_vec,fusion_threshold)
+    coassoc_vec         = _filter_from_usage_threshold_binary_sum(coassoc_vec,usage_threshold)
+    coassoc_vec         = _filter_from_usage_threshold_euclidean_score(coassoc_vec,usage_threshold)
+    incident_mat        = _get_incident_matrix_binary(coassoc_vec,fusion_threshold)
+    incident_mat        = _get_incident_matrix_cosine_similarity(coassoc_vec,fusion_threshold)
     print incident_mat
     codebook_groups     = _group_codebooks(incident_mat,len(coassoc_vec.keys()))
     print codebook_groups
