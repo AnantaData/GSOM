@@ -73,6 +73,13 @@ class gsomap(object):
         self.lr=lr_s
         #print self.map_neurons
 
+    def create_fused_gsom(self,neuron_map):
+        self.map_neurons = {}
+        for neu in neuron_map:
+            nhash = str(neu.x_c)+""+str(neu.y_c)
+            n = neuron(neu.x_c,neu.y_c,self.dim)
+            n.weight_vs = neu.weight
+            self.map_neurons[nhash] = n
 
     def process_batch(self,batch_np_array, k=10):
         for j in range(k):

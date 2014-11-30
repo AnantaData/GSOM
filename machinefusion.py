@@ -1,4 +1,7 @@
 from sklearn.metrics import jaccard_similarity_score
+import numpy as np
+import numpy.random as npr
+from gsom import gsomap
 
 __author__ = 'lakmal/laksheen'
 
@@ -11,7 +14,8 @@ class fused_neuron():
 
 def _get_trained_models(gsom, no_samples, features):
     trained_gsoms = []
-    idx = npr.randint(0, len(features), (no_samples,len(features)))
+    idx = npr.randint(0, len(features), (no_samples,int(0.63*len(features))))
+    print len(idx[0])
     for i in range(0,no_samples):
         trained_gsoms.append(gsom)
         trained_gsoms[i].process_batch(features[idx[i]],750)
@@ -68,7 +72,7 @@ def _group_codebooks(incidence_matrix,codebooklen):
     return groups
 
 
-def _get_fused_gsom(coassoc_vec, codebook_groups, connection_threshold):
+def _get_fused_gsom(gsom,coassoc_vec, codebook_groups, connection_threshold):
     group_neurons = []
     for j in range(int(max(codebook_groups))):
         group_neurons.append([])
@@ -93,9 +97,11 @@ def _get_fused_gsom(coassoc_vec, codebook_groups, connection_threshold):
     for k in range(incidence_ensemble.shape[0]):
         for l in range(k,incidence_ensemble.shape[0]):
             if(incidence_ensemble[k][l]>connection_threshold):
-                 print "connected",k,"and",l
-
-    fused_gsom = None
+                if(k!=l):
+                    print "connected",k,"and",l , "x1 ",new_neurons[k].x_c, " y1 ", new_neurons[k].y_c, "x2 ",new_neurons[l].x_c, " y2 ", new_neurons[l].y_c
+    print incidence_ensemble
+    fused_gsom = gsom
+    fused_gsom.create_fused_gsom(new_neurons)
     return fused_gsom
 
 def _get_incidence_ensemble(group_neurons,coassoc_vec):
@@ -128,21 +134,5 @@ def machine_fusion_gsom(data, gsom, no_samples, usage_threshold, fusion_threshol
     print incident_mat
     codebook_groups     = _group_codebooks(incident_mat,len(coassoc_vec.keys()))
     print codebook_groups
-    return _get_fused_gsom(coassoc_vec,codebook_groups, connection_threshold)
+    return _get_fused_gsom(gsom, coassoc_vec,codebook_groups, connection_threshold)
 
-import numpy as np
-import numpy.random as npr
-import numpy as np
-from gsom import gsomap
-
-data = np.loadtxt("zoo.data.txt",dtype=str,delimiter=",")
-data = np.array(data)
-names = data[:,0]
-names= np.column_stack((names,data[:,-1]))
-features= data[:,:-1]
-features = features[:,1:].astype(int)
-
-
-gsom = gsomap(SP=0.9,dims=16,nr_s=4,lr_s=0.9,fd=0.99999)
-
-machine_fusion_gsom(features,gsom,4,2,0.975,0.97)
