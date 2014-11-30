@@ -1,11 +1,5 @@
 import numpy as np
+import matplotlib.pyplot as plt
+x = np.array([[1,2,1,2,5,7,5,1,5,6,1,4,5],[2,2,5,4,5,6,2,4,6,5,2,4,2]])
 
-a = np.array([1,0,1])
-b = np.array([0,1,1])
-
-aa= a.astype(bool)
-bb=b.astype(bool)
-
-union = np.where(np.logical_or(aa,bb)==False)[0]
-
-print len(union)
+print sum(x)
