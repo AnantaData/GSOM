@@ -18,7 +18,8 @@ positions = np.ndarray(shape=(101,2))
 
 gsom = gsomap(SP=0.9,dims=16,nr_s=4,lr_s=0.9,fd=0.99999)
 
-gmap = machine_fusion_gsom(features,gsom,25,5,0.8,0.75)
+gmap = machine_fusion_gsom(features,gsom,5,"binary",5,0.975,0.95)
+#gmap = machine_fusion_gsom(features,gsom,5,"euclidean",5,0.98,0.95)
 
 keys = gmap.map_neurons.keys()
 for k in keys:

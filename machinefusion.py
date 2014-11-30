@@ -39,7 +39,7 @@ def _filter_from_usage_threshold_binary_sum(coassoc_vec, usage_threshold):
 
 def _filter_from_usage_threshold_euclidean_score(coassoc_vec, usage_threshold):
     for map_coords in coassoc_vec.keys():
-        if np.linalg.norm(coassoc_vec[map_coords]) > usage_threshold:
+        if np.linalg.norm(coassoc_vec[map_coords].binarycoassoc_vs) > usage_threshold:
             del coassoc_vec[map_coords]
     return coassoc_vec
 
@@ -151,13 +151,16 @@ def _get_max_similarity(list1,list2, coassoc_vec):
                 max = jaccard
     return max
 
-def machine_fusion_gsom(data, gsom, no_samples, usage_threshold, fusion_threshold,connection_threshold):
+def machine_fusion_gsom(data, gsom, no_samples, method ,usage_threshold, fusion_threshold,connection_threshold):
     trained_gsoms       = _get_trained_models(gsom,no_samples,data)
     coassoc_vec         = _get_coassoc_vec(trained_gsoms)
-    coassoc_vec         = _filter_from_usage_threshold_binary_sum(coassoc_vec,usage_threshold)
-    coassoc_vec         = _filter_from_usage_threshold_euclidean_score(coassoc_vec,usage_threshold)
-    incident_mat        = _get_incident_matrix_binary(coassoc_vec,fusion_threshold)
-    incident_mat        = _get_incident_matrix_cosine_similarity(coassoc_vec,fusion_threshold)
+    incident_mat = None
+    if(method == "binary"):
+        coassoc_vec         = _filter_from_usage_threshold_binary_sum(coassoc_vec,usage_threshold)
+        incident_mat        = _get_incident_matrix_binary(coassoc_vec,fusion_threshold)
+    elif(method=="euclidean"):
+        coassoc_vec         = _filter_from_usage_threshold_euclidean_score(coassoc_vec,usage_threshold)
+        incident_mat        = _get_incident_matrix_cosine_similarity(coassoc_vec,fusion_threshold)
     print incident_mat
     codebook_groups     = _group_codebooks(incident_mat,len(coassoc_vec.keys()))
     print codebook_groups
