@@ -3,6 +3,8 @@ __author__ = 'laksheen'
 import numpy as np
 from gsom import gsomap
 import matplotlib.pyplot as plt
+from scipy.spatial.distance import jaccard
+from sklearn.metrics import jaccard_similarity_score
 
 data = np.loadtxt("zoo.data.txt",dtype=str,delimiter=",")
 
@@ -33,37 +35,34 @@ gmap4.process_batch(features,750)
 
 coassocs={}
 for neu in gmap1.map_neurons.values():
-    coassocs[1,str(neu.coords()[0])+""+str(neu.coords()[1])]=neu.coassoc_vs
+    coassocs[1,str(neu.coords()[0])+""+str(neu.coords()[1])]=neu.binarycoassoc_vs
 
 for neu in gmap2.map_neurons.values():
-    coassocs[2,str(neu.coords()[0])+""+str(neu.coords()[1])]=neu.coassoc_vs
+    coassocs[2,str(neu.coords()[0])+""+str(neu.coords()[1])]=neu.binarycoassoc_vs
 
 for neu in gmap3.map_neurons.values():
-    coassocs[3,str(neu.coords()[0])+""+str(neu.coords()[1])]=neu.coassoc_vs
+    coassocs[3,str(neu.coords()[0])+""+str(neu.coords()[1])]=neu.binarycoassoc_vs
 
 for neu in gmap4.map_neurons.values():
-    coassocs[4,str(neu.coords()[0])+""+str(neu.coords()[1])]=neu.coassoc_vs
+    coassocs[4,str(neu.coords()[0])+""+str(neu.coords()[1])]=neu.binarycoassoc_vs
 
-usage_threshold = 0.1
-#used ={}
+#print len(coassocs.keys())
+
+usage_threshold = 5
 
 for map_coords in coassocs.keys():
 
-    if np.linalg.norm(coassocs[map_coords]) < usage_threshold:
+    if np.sum(coassocs[map_coords]) < usage_threshold:
         del coassocs[map_coords]
 
+#print len(coassocs.keys())
 
-#used=np.array(used)
-############ the new coassociation vectors are good enough I guess.. Let's go for the similarity measure and stuff
-
-fusion_threshold = 0.3
+fusion_threshold = 0.97
 
 n = len(coassocs.keys())
-incidence_matrix = np.empty(shape=(n,n))
-incidence_matrix[:] = -1
+incidence_matrix = np.zeros(shape=(n,n))
 
-
-#print incidence_matrix
+print incidence_matrix.shape
 
 #print len(incidence_matrix)
 
@@ -73,17 +72,16 @@ for i in range(len(coassocs.keys())-1):
 
     checkee = coassocs[coassocs.keys()[i+1]]
 
-    incidence_matrix[i][i] = 0
-
     if i == len(coassocs.keys())-2:
-        incidence_matrix[i+1][i+1] = 0
+        incidence_matrix[i+1][i+1] = 1
+
+    incidence_matrix[i][i] = 1
 
     for j in range(i+1):
-        score = np.linalg.norm(checkee-coassocs[coassocs.keys()[j]])
-        if score < fusion_threshold and score >= 0:
-            incidence_matrix[j][i+1] = score
+        if jaccard_similarity_score(checkee,coassocs[coassocs.keys()[j]]) > fusion_threshold :
+            incidence_matrix[j][i+1] = 1
 
-#print incidence_matrix[len(incidence_matrix)-1,:]
+print incidence_matrix
 
 for k in range(len(incidence_matrix)):
     if(k==0):
@@ -95,12 +93,12 @@ for k in range(len(incidence_matrix)):
             group_num = groups[k]
 
     for j in range(k,len(incidence_matrix)):
-        if (incidence_matrix[k][j] >= 0):
+        if (incidence_matrix[k][j] == 1):
             groups[j] = group_num
 
-print groups
+#print groups
 
-print len(np.unique(groups))
+m = len(np.unique(groups))
 
 clusters = {}
 
@@ -118,6 +116,7 @@ for i in range(len(coassocs.keys())):
         gmap = gmap3
     elif map_no == 4:
         gmap = gmap4
+
     weight = gmap.map_neurons[coorstr].weight_vs
 
     try :
@@ -127,11 +126,12 @@ for i in range(len(coassocs.keys())):
     temp.append(weight)
     clusters[groups[i]-1]=temp
 
-#print len(clusters[10])
+#print clusters
+
 w = []
 
 for i in clusters.keys():
     w.append( sum(np.array(clusters[i]))/np.array(clusters[i]).shape[0] )
 
-print w
 
+print w

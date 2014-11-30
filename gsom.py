@@ -1,3 +1,5 @@
+__author__ = 'laksheen'
+
 #######################################################################################
 import numpy as np
 import pandas as pd
@@ -35,6 +37,7 @@ class neuron(object):
     weight_vs=None
     #new entry
     coassoc_vs = None
+    binarycoassoc_vs = None
 
     def __init__(self,x,y,dims):
         """
@@ -44,7 +47,11 @@ class neuron(object):
         self.x_c=x
         self.y_c=y
         self.weight_vs=np.random.random(size=dims)
-        self.coassoc_vs=np.zeros(shape=(100000))
+
+        self.coassoc_vs=np.zeros(shape=(150))
+        self.binarycoassoc_vs=np.zeros(shape=150)
+        #print self.coassoc_vs
+       # print str(x)+","+str(y)+":"+str(self.weight_vs)
 
     def coords(self):
         self.cors= [str(self.x_c), str(self.y_c)]
@@ -120,6 +127,13 @@ class gsomap(object):
         self.lr=lr_s
         #print self.map_neurons
 
+    def create_fused_gsom(self,neuron_map):
+        self.map_neurons = {}
+        for neu in neuron_map:
+            nhash = str(neu.x_c)+""+str(neu.y_c)
+            n = neuron(neu.x_c,neu.y_c,self.dim)
+            n.weight_vs = neu.weight
+            self.map_neurons[nhash] = n
 
     def predict_point(self, input_array):
         bmu = self.getBMU(input_array)
@@ -146,6 +160,7 @@ class gsomap(object):
                 #here's the tricky part
                 score= minkowski(winner.weight_vs,tinp,2)#/self.dim
                 winner.coassoc_vs[i]= score
+                winner.binarycoassoc_vs[i]=1
                 #print winner.coassoc_vs
                 self.map_neurons[bhash]=winner
 

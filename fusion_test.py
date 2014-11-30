@@ -1,34 +1,33 @@
-from scipy.ndimage.interpolation import zoom
-from xmlrpclib import boolean
-import pandas as pd
-import time
+from machinefusion import machine_fusion_gsom
+
+__author__ = 'lakmal'
+
+import numpy as np
+import numpy.random as npr
 import numpy as np
 from gsom import gsomap
 import matplotlib.pyplot as plt
+
 data = np.loadtxt("zoo.data.txt",dtype=str,delimiter=",")
-
 data = np.array(data)
-
 names = data[:,0]
-
 names= np.column_stack((names,data[:,-1]))
-
 features= data[:,:-1]
-print features
 features = features[:,1:].astype(int)
-
-
-
-
 positions = np.ndarray(shape=(101,2))
-st = time.time()
-gmap = gsomap(SP=0.9999,dims=16,nr_s=10,lr_s=0.01,fd=0.999,lrr=0.95)
-gmap.process_batch(features,100)
-print len(gmap.map_neurons.keys())
-print (" elapsed time : ",(time.time()-st))
+
+gsom = gsomap(SP=0.9,dims=16,nr_s=4,lr_s=0.9,fd=0.99999)
+
+gmap = machine_fusion_gsom(features,gsom,5,"binary",5,0.975,0.95)
+#gmap = machine_fusion_gsom(features,gsom,5,"euclidean",5,0.98,0.95)
+
+keys = gmap.map_neurons.keys()
+for k in keys:
+    print gmap.map_neurons[k].x_c
+
 
 for i in range(positions.shape[0]):
-    positions [i]= gmap.predict_point(features[i]).astype(int)
+    positions [i]= gmap.process_input(features[i]).astype(int)
     #print positions[i]
 
 names=np.column_stack((names,positions[:,0],positions[:,1]))
@@ -37,12 +36,7 @@ names=np.column_stack((names,positions[:,0],positions[:,1]))
 
 classification=np.array(['mammal','bird','reptile','fish','amphibian','insect','seacreature'])
 
-x = np.array([i for i in range(100)])
-y = np.array(gmap.map_sizes)
-plt.plot(x,y)
-plt.xlabel("iteration")
-plt.ylabel("map size")
-plt.show()
+
 
 labels = names[:,0]
 #for i in range(labels.shape[0]):
@@ -58,8 +52,16 @@ for label, x, y in zip(labels, positions[:, 0], positions[:, 1]):
         textcoords = 'offset points', ha = 'right', va = 'bottom',
         bbox = dict(boxstyle = 'round,pad=0.5', fc = 'yellow', alpha = 0.5),
         arrowprops = dict(arrowstyle = '->', connectionstyle = 'arc3,rad=0'))
+'''
+i=1
+for neu in gmap.map_neurons.values():
+    si = np.linalg.norm(neu.coassoc_vs)
+    if si > 0:
+        print "coassoc:"+str(i)+" :"+str(si)
+        i=i+1
 
-
+print "eliminated "+str(len(gmap.map_neurons)-i)+" out of "+str(len(gmap.map_neurons))+" neurons!"
+'''
 plt.show()
 
 colors={1:"green", 2:"yellow", 3:"black", 4:"blue", 5:"red", 6:"orange", 7:"gray"}
@@ -73,7 +75,3 @@ sizes = [20*2**2 for n in range(len(names[:,1]))]
 
 plt.scatter(positions[:,0],positions[:,1],c=colorlist,s=sizes)
 plt.show()
-# gmap.viewmap()
-
-#print gmap.map_neurons['010'].weight_vs
-
