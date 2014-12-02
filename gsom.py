@@ -50,6 +50,7 @@ class neuron(object):
 
         self.coassoc_vs=np.zeros(shape=(150))
         self.binarycoassoc_vs=np.zeros(shape=150)
+        self.k_coassoc_vs = np.zeros(shape=150)
         #print self.coassoc_vs
        # print str(x)+","+str(y)+":"+str(self.weight_vs)
 

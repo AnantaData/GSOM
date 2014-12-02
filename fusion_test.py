@@ -5,7 +5,7 @@ __author__ = 'lakmal'
 import numpy as np
 import numpy.random as npr
 import numpy as np
-from gsom import gsomap
+from kgsom import gsomap
 import matplotlib.pyplot as plt
 
 data = np.loadtxt("zoo.data.txt",dtype=str,delimiter=",")
@@ -16,11 +16,12 @@ features= data[:,:-1]
 features = features[:,1:].astype(int)
 positions = np.ndarray(shape=(101,2))
 
-gsom = gsomap(SP=0.9,dims=16,nr_s=4,lr_s=0.9,fd=0.99999)
+gsom = gsomap(SP=0.9999,dims=16,nr_s=10,lr_s=0.01,fd=0.999,lrr=0.95,n_jobs=3,sig2=1000,prune=0.8)#(SP=0.9,dims=16,nr_s=4,lr_s=0.9,fd=0.99999)
 
-gmap = machine_fusion_gsom(features,gsom,5,"binary",5,0.975,0.95)
+#gmap = machine_fusion_gsom(features,gsom,5,"binary",5,0.975,0.95)
 #gmap = machine_fusion_gsom(features,gsom,5,"euclidean",5,0.98,0.95)
-
+gmap = machine_fusion_gsom(features,gsom,2,"kernel",5,0.975,0.95)
+print "models trained..."
 keys = gmap.map_neurons.keys()
 for k in keys:
     print gmap.map_neurons[k].x_c

@@ -19,7 +19,7 @@ def _get_trained_models(gsom, no_samples, features):
     print len(idx[0])
     for i in range(0,no_samples):
         trained_gsoms.append(gsom)
-        trained_gsoms[i].process_batch(features[idx[i]],750)
+        trained_gsoms[i].process_batch(features[idx[i]],100)
     return trained_gsoms
 
 def _get_coassoc_vec(trained_gsoms):
@@ -39,9 +39,11 @@ def _filter_from_usage_threshold_binary_sum(coassoc_vec, usage_threshold):
 
 def _filter_from_usage_threshold_euclidean_score(coassoc_vec, usage_threshold):
     for map_coords in coassoc_vec.keys():
-        if np.linalg.norm(coassoc_vec[map_coords].binarycoassoc_vs) > usage_threshold:
+        if np.linalg.norm(coassoc_vec[map_coords].coassoc_vs) > usage_threshold:
             del coassoc_vec[map_coords]
     return coassoc_vec
+
+
 
 def _get_incident_matrix_binary(coassoc_vec, fusion_threshold):
     n = len(coassoc_vec.keys())
@@ -60,6 +62,27 @@ def _get_incident_matrix_binary(coassoc_vec, fusion_threshold):
                 incidence_matrix[j][i+1] = 1
 
     return incidence_matrix
+
+def _get_incident_matrix_kernel_score(coassoc_vec,fusion_threshold):
+    n = len(coassoc_vec.keys())
+    incidence_matrix = np.zeros(shape=(n,n))
+    for i in range(len(coassoc_vec.keys())-1):
+        checkee = coassoc_vec[coassoc_vec.keys()[i+1]]
+
+        if i == len(coassoc_vec.keys())-2:
+            incidence_matrix[i+1][i+1] = 1
+
+        incidence_matrix[i][i] = 1
+
+        for j in range(i+1):
+            neu = coassoc_vec[coassoc_vec.keys()[j]]
+            if _gaussian_kernel(checkee.coassoc_vs,neu.coassoc_vs, 0.01) > fusion_threshold :
+                incidence_matrix[j][i+1] = 1
+
+    return incidence_matrix
+
+def _gaussian_kernel(u, v, gamma = 1000):
+    return np.exp(-1* gamma * np.linalg.norm(u-v))
 
 def _get_incident_matrix_cosine_similarity(coassoc_vec, fusion_threshold):
     n = len(coassoc_vec.keys())
@@ -135,7 +158,7 @@ def _get_incidence_ensemble(group_neurons,coassoc_vec):
     for i in range(len(group_neurons)):
         incidence_ensemble[i][i] = 1
         for j in range(i,len(group_neurons)):
-            incidence_ensemble[i][j]= _get_max_similarity(group_neurons[i],group_neurons[j],coassoc_vec)
+            incidence_ensemble[i][j]= _get_max_similarity_kernel(group_neurons[i],group_neurons[j],coassoc_vec)
     return incidence_ensemble
 
 
@@ -151,6 +174,18 @@ def _get_max_similarity(list1,list2, coassoc_vec):
                 max = jaccard
     return max
 
+def _get_max_similarity_kernel(list1,list2, coassoc_vec):
+    n = len(coassoc_vec.keys())
+    max = 0
+    for i in range(len(list1)):
+        checkee = coassoc_vec[coassoc_vec.keys()[list1[i]]]
+        for j in range(len(list2)):
+            neu = coassoc_vec[coassoc_vec.keys()[list2[j]]]
+            sim = _gaussian_kernel(checkee.coassoc_vs,neu.coassoc_vs)# = jaccard_similarity_score(checkee.binarycoassoc_vs,neu.binarycoassoc_vs)
+            if sim > max:
+                max = sim
+    return max
+
 def machine_fusion_gsom(data, gsom, no_samples, method ,usage_threshold, fusion_threshold,connection_threshold):
     trained_gsoms       = _get_trained_models(gsom,no_samples,data)
     coassoc_vec         = _get_coassoc_vec(trained_gsoms)
@@ -161,6 +196,9 @@ def machine_fusion_gsom(data, gsom, no_samples, method ,usage_threshold, fusion_
     elif(method=="euclidean"):
         coassoc_vec         = _filter_from_usage_threshold_euclidean_score(coassoc_vec,usage_threshold)
         incident_mat        = _get_incident_matrix_cosine_similarity(coassoc_vec,fusion_threshold)
+    elif(method == 'kernel'):
+        coassoc_vec = _filter_from_usage_threshold_euclidean_score(coassoc_vec,usage_threshold)
+        incident_mat        = _get_incident_matrix_kernel_score(coassoc_vec,fusion_threshold)
     print incident_mat
     codebook_groups     = _group_codebooks(incident_mat,len(coassoc_vec.keys()))
     print codebook_groups
