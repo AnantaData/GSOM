@@ -3,10 +3,31 @@ __author__ = 'laksheen'
 #######################################################################################
 import numpy as np
 import pandas as pd
+import time
 import matplotlib.pyplot as plt
 from numpy import Infinity, Inf, shape
 from scipy.spatial.distance import minkowski, jaccard
 from Crypto.Util.number import size
+import sys
+from joblib import Parallel, delayed
+
+
+### Helper methods ####
+def _find_in_map(gmap,ix_rng_s,ix_rng_e, inp_vec):
+
+    keys= gmap.keys()[ix_rng_s:ix_rng_e]
+
+    minDist=9223372036854775807
+    candidate= None
+    for neu_key in keys:
+        neu = gmap[neu_key]
+        cand=minkowski(inp_vec, neu.weight_vs, 2)
+        if minDist> cand:
+            minDist = cand
+            candidate= neu
+
+    return  candidate
+#####
 
 class neuron(object):
 
@@ -26,6 +47,7 @@ class neuron(object):
         self.x_c=x
         self.y_c=y
         self.weight_vs=np.random.random(size=dims)
+
         self.coassoc_vs=np.zeros(shape=(150))
         self.binarycoassoc_vs=np.zeros(shape=150)
         #print self.coassoc_vs
@@ -39,6 +61,36 @@ class neuron(object):
 class gsomap(object):
 
     map_neurons ={}
+
+
+
+    def parallel_search_bmu(self, input_vector):
+
+        mapsize=len(self.map_neurons.keys())
+        indices=[]
+        for i in range (self.n_jobs):
+            indices.append([i*mapsize/self.n_jobs , (i+1)*mapsize/self.n_jobs-1])
+
+        #res = Parallel(n_jobs=2) (delayed(check_paths) (Path(points), a) for points in b)
+
+
+        res=Parallel(n_jobs=self.n_jobs)(delayed(_find_in_map)(self.map_neurons,ix_range[0],ix_range[1],input_vector)for ix_range in indices)
+        for r in res:
+            if r is None:
+                print r
+
+        minDist=9223372036854775807
+        candidate= None
+        for neu in res:
+            cand=minkowski(input_vector, neu.weight_vs, 2)
+            if minDist> cand:
+                minDist = cand
+                candidate= neu
+
+        return candidate
+
+
+
 
     def viewmap(self):
         x=np.ndarray(shape=len(self.map_neurons))
@@ -55,11 +107,13 @@ class gsomap(object):
         plt.show()
 
 
-    def __init__(self,SP=0.5,dims=3,nr_s=6,lr_s=0.9,boolean=False, lrr =0.5,fd=0.5):
+    def __init__(self,SP=0.5,dims=3,nr_s=6,lr_s=0.9,boolean=False, lrr =0.5,fd=0.5, n_jobs = 2):
+        self.n_jobs= n_jobs
         self.boolean=boolean
         self.fd=fd
-        self.lrr = lrr
+        self.lr_red_coef = lrr
         self.dim = dims
+        self.map_sizes=[]
         for i in range(4):
             x=i/2
             y=i%2
@@ -81,9 +135,23 @@ class gsomap(object):
             n.weight_vs = neu.weight
             self.map_neurons[nhash] = n
 
+    def predict_point(self, input_array):
+        bmu = self.getBMU(input_array)
+        #bmu = self.parallel_search_bmu(input_array)
+        return bmu.coords()
+
+
     def process_batch(self,batch_np_array, k=10):
+        start_time= time.time()
         for j in range(k):
+            self.map_sizes.append(len(self.map_neurons.keys()))
             for i in range(batch_np_array.shape[0]):
+                sys.stdout.write("iteration %d :"%(j+1))
+                sys.stdout.write(" : NR = %d: "%(self.nr))
+                sys.stdout.write(" input %d "%(i))
+                sys.stdout.write(" map size %d "%(len(self.map_neurons.keys())))
+                sys.stdout.write(" time %d \r"%(time.time()-start_time))
+                sys.stdout.flush()
                 tinp = batch_np_array[i]
                 bcoords=self.process_input(tinp)
                 bhash=str(bcoords[0])+""+str(bcoords[1])
@@ -96,15 +164,11 @@ class gsomap(object):
                 #print winner.coassoc_vs
                 self.map_neurons[bhash]=winner
 
-            self.nr=self.nr*self.lr
-            self.lr = self.lr*self.lrr*(1-3.8/len(self.map_neurons.values()))
-            if self.nr <=4 :
+            self.nr=self.nr*(1-self.lr)
+            self.lr = self.lr*self.lr_red_coef*(1-3.85/len(self.map_neurons.values()))
+            if self.nr <=1 :
+                print self.nr
                 return
-            #normalization attempt:
-            #for hsk in self.map_neurons.keys():
-            #    neu = self.map_neurons[hsk]
-            #    neu.weight_vs=0.5*neu.weight_vs
-            #    self.map_neurons[hsk]=neu
 
         return
 
@@ -150,6 +214,8 @@ class gsomap(object):
                 n=None
                 try:
                     n= self.map_neurons[coord]
+                    n.res_err+=self.fd*n.res_err
+
                 except KeyError:
                     nwron=neuron(nei_coordi[p][0], nei_coordi[p][1], self.dim)
                     new_weight = 0
@@ -177,10 +243,8 @@ class gsomap(object):
                     # nwron.weight_vs.fill(0.5)
                     nwron.weight_vs = new_weight
                     n=nwron
-                n.res_err+=self.fd*neu.res_err
                 self.map_neurons[coord]=n
                 p+=1
-
             bmu.res_err=self.thresh/2
             self.map_neurons[str(bmu.x_c)+""+str(bmu.y_c)]=bmu
         return bmu.coords()
