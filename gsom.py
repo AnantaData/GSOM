@@ -39,6 +39,7 @@ class neuron(object):
     coassoc_vs = None
     binarycoassoc_vs = None
 
+
     def __init__(self,x,y,dims):
         """
 
@@ -50,6 +51,7 @@ class neuron(object):
 
         self.coassoc_vs=np.zeros(shape=(150))
         self.binarycoassoc_vs=np.zeros(shape=150)
+        self.inputs = []
         #print self.coassoc_vs
        # print str(x)+","+str(y)+":"+str(self.weight_vs)
 
@@ -140,6 +142,11 @@ class gsomap(object):
         #bmu = self.parallel_search_bmu(input_array)
         return bmu.coords()
 
+    def predict_point_1(self, input_array, i):
+        bmu = self.getBMU(input_array)
+        #bmu = self.parallel_search_bmu(input_array)
+        bmu.inputs.append(i)
+        return bmu.coords()
 
     def process_batch(self,batch_np_array, k=10):
         start_time= time.time()
@@ -342,7 +349,11 @@ class gsomap(object):
         return new_weight
 
 
-
+    def classified_inputs(self):
+        classified_inputs = []
+        for a in self.map_neurons.keys():
+            classified_inputs.append(self.map_neurons[a].inputs)
+        return  classified_inputs
 
 ##################################################################################
 # import numpy as np
