@@ -1,9 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
+<<<<<<< Updated upstream
     <list default="true" id="6bb4e2f4-5069-4c29-8824-bf61628779e7" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/fusion.py" afterPath="$PROJECT_DIR$/fusion.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/machinefusion.py" afterPath="$PROJECT_DIR$/machinefusion.py" />
+=======
+    <list default="true" id="6bb4e2f4-5069-4c29-8824-bf61628779e7" name="Default" comment="Added connecting neurons">
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/GSOM.iml" afterPath="$PROJECT_DIR$/.idea/GSOM.iml" />
+>>>>>>> Stashed changes
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="GSOM.iws" />
@@ -30,8 +35,23 @@
       <file leaf-file-name="gsom.py" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/gsom.py">
           <provider selected="true" editor-type-id="text-editor">
+<<<<<<< Updated upstream
             <state vertical-scroll-proportion="0.0" vertical-offset="986" max-vertical-offset="6810">
               <caret line="29" column="49" selection-start-line="29" selection-start-column="49" selection-end-line="29" selection-end-column="49" />
+=======
+            <state vertical-scroll-proportion="0.0" vertical-offset="3000" max-vertical-offset="6990">
+              <caret line="200" column="0" selection-start-line="200" selection-start-column="0" selection-end-line="200" selection-end-column="0" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="irisTest.py" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/irisTest.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0" vertical-offset="330" max-vertical-offset="600">
+              <caret line="22" column="10" selection-start-line="22" selection-start-column="10" selection-end-line="22" selection-end-column="10" />
+>>>>>>> Stashed changes
               <folding />
             </state>
           </provider>
@@ -40,8 +60,13 @@
       <file leaf-file-name="fusion.py" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/fusion.py">
           <provider selected="true" editor-type-id="text-editor">
+<<<<<<< Updated upstream
             <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="2115">
               <caret line="5" column="0" selection-start-line="5" selection-start-column="0" selection-end-line="5" selection-end-column="0" />
+=======
+            <state vertical-scroll-proportion="0.0" vertical-offset="210" max-vertical-offset="2130">
+              <caret line="14" column="0" selection-start-line="14" selection-start-column="0" selection-end-line="14" selection-end-column="0" />
+>>>>>>> Stashed changes
               <folding />
             </state>
           </provider>
@@ -50,8 +75,13 @@
       <file leaf-file-name="BinaryFusion.py" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/BinaryFusion.py">
           <provider selected="true" editor-type-id="text-editor">
+<<<<<<< Updated upstream
             <state vertical-scroll-proportion="0.0" vertical-offset="210" max-vertical-offset="2145">
               <caret line="14" column="42" selection-start-line="14" selection-start-column="42" selection-end-line="14" selection-end-column="42" />
+=======
+            <state vertical-scroll-proportion="0.0" vertical-offset="691" max-vertical-offset="2145">
+              <caret line="2" column="0" selection-start-line="2" selection-start-column="0" selection-end-line="2" selection-end-column="18" />
+>>>>>>> Stashed changes
               <folding />
             </state>
           </provider>
@@ -60,11 +90,52 @@
       <file leaf-file-name="machinefusion.py" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/machinefusion.py">
           <provider selected="true" editor-type-id="text-editor">
+<<<<<<< Updated upstream
             <state vertical-scroll-proportion="0.06998445" vertical-offset="0" max-vertical-offset="2745">
               <caret line="3" column="30" selection-start-line="3" selection-start-column="30" selection-end-line="3" selection-end-column="30" />
               <folding>
                 <element signature="e#0#52#0" expanded="true" />
               </folding>
+=======
+            <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1770">
+              <caret line="16" column="75" selection-start-line="16" selection-start-column="75" selection-end-line="16" selection-end-column="75" />
+              <folding>
+                <element signature="e#0#52#0" expanded="true" />
+                <element signature="e#667#881#0" expanded="false" />
+                <element signature="e#951#1130#0" expanded="false" />
+                <element signature="e#1813#2227#0" expanded="false" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="fusion_test.py" pinned="false" current="true" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/fusion_test.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="-1.446524" vertical-offset="841" max-vertical-offset="1215">
+              <caret line="20" column="55" selection-start-line="20" selection-start-column="55" selection-end-line="20" selection-end-column="55" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="zoo.data.txt" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/zoo.data.txt">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0" vertical-offset="495" max-vertical-offset="1605">
+              <caret line="100" column="38" selection-start-line="100" selection-start-column="38" selection-end-line="100" selection-end-column="38" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="validation.py" pinned="false" current="false" current-in-tab="false">
+        <entry file="file:///usr/local/lib/python2.7/dist-packages/sklearn/utils/validation.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0" vertical-offset="2595" max-vertical-offset="5370">
+              <caret line="173" column="0" selection-start-line="173" selection-start-column="0" selection-end-line="173" selection-end-column="0" />
+              <folding />
+>>>>>>> Stashed changes
             </state>
           </provider>
         </entry>
@@ -72,8 +143,13 @@
       <file leaf-file-name="zoo.py" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/zoo.py">
           <provider selected="true" editor-type-id="text-editor">
+<<<<<<< Updated upstream
             <state vertical-scroll-proportion="0.0" vertical-offset="497" max-vertical-offset="1215">
               <caret line="52" column="0" selection-start-line="52" selection-start-column="0" selection-end-line="52" selection-end-column="0" />
+=======
+            <state vertical-scroll-proportion="0.0" vertical-offset="646" max-vertical-offset="1290">
+              <caret line="2" column="19" selection-start-line="2" selection-start-column="19" selection-end-line="2" selection-end-column="19" />
+>>>>>>> Stashed changes
               <folding />
             </state>
           </provider>
@@ -107,16 +183,21 @@
         <option value="$PROJECT_DIR$/zoo.py" />
         <option value="$PROJECT_DIR$/BinaryFusion.py" />
         <option value="$PROJECT_DIR$/gsom.py" />
+<<<<<<< Updated upstream
         <option value="$PROJECT_DIR$/fusion.py" />
         <option value="$PROJECT_DIR$/machinefusion.py" />
+=======
+        <option value="$PROJECT_DIR$/machinefusion.py" />
+        <option value="$PROJECT_DIR$/fusion_test.py" />
+>>>>>>> Stashed changes
       </list>
     </option>
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="65" />
+    <option name="x" value="48" />
     <option name="y" value="-4" />
-    <option name="width" value="1301" />
-    <option name="height" value="772" />
+    <option name="width" value="1319" />
+    <option name="height" value="773" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="false">
     <OptionsSetting value="true" id="Add" />
@@ -170,7 +251,7 @@
   <component name="PropertiesComponent">
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="recentsLimit" value="5" />
-    <property name="options.lastSelected" value="com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable" />
+    <property name="options.lastSelected" value="http.proxy" />
     <property name="options.splitter.main.proportions" value="0.3" />
     <property name="options.splitter.details.proportions" value="0.2" />
     <property name="options.searchVisible" value="true" />
@@ -181,25 +262,7 @@
       <console-settings />
     </option>
   </component>
-  <component name="RunManager" selected="Python.BinaryFusion">
-    <configuration default="false" name="codetest" type="PythonConfigurationType" factoryName="Python" temporary="true">
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
-      <option name="IS_MODULE_SDK" value="true" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <module name="GSOM" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/codetest.py" />
-      <option name="PARAMETERS" value="" />
-      <RunnerSettings RunnerId="PythonRunner" />
-      <ConfigurationWrapper RunnerId="PythonRunner" />
-      <method />
-    </configuration>
+  <component name="RunManager" selected="Python.fusion_test">
     <configuration default="false" name="zoo" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -236,7 +299,7 @@
       <ConfigurationWrapper RunnerId="PythonRunner" />
       <method />
     </configuration>
-    <configuration default="false" name="fusion" type="PythonConfigurationType" factoryName="Python" temporary="true">
+    <configuration default="false" name="machinefusion" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
       <envs>
@@ -248,7 +311,43 @@
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <module name="GSOM" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/fusion.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/machinefusion.py" />
+      <option name="PARAMETERS" value="" />
+      <RunnerSettings RunnerId="PythonRunner" />
+      <ConfigurationWrapper RunnerId="PythonRunner" />
+      <method />
+    </configuration>
+    <configuration default="false" name="irisTest" type="PythonConfigurationType" factoryName="Python" temporary="true">
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <module name="GSOM" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/irisTest.py" />
+      <option name="PARAMETERS" value="" />
+      <RunnerSettings RunnerId="PythonRunner" />
+      <ConfigurationWrapper RunnerId="PythonRunner" />
+      <method />
+    </configuration>
+    <configuration default="false" name="fusion_test" type="PythonConfigurationType" factoryName="Python" temporary="true">
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <module name="GSOM" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/fusion_test.py" />
       <option name="PARAMETERS" value="" />
       <RunnerSettings RunnerId="PythonRunner" />
       <ConfigurationWrapper RunnerId="PythonRunner" />
@@ -375,18 +474,20 @@
       <option name="USE_PATTERN" value="false" />
       <method />
     </configuration>
-    <list size="4">
-      <item index="0" class="java.lang.String" itemvalue="Python.codetest" />
-      <item index="1" class="java.lang.String" itemvalue="Python.zoo" />
-      <item index="2" class="java.lang.String" itemvalue="Python.BinaryFusion" />
-      <item index="3" class="java.lang.String" itemvalue="Python.fusion" />
+    <list size="5">
+      <item index="0" class="java.lang.String" itemvalue="Python.zoo" />
+      <item index="1" class="java.lang.String" itemvalue="Python.BinaryFusion" />
+      <item index="2" class="java.lang.String" itemvalue="Python.machinefusion" />
+      <item index="3" class="java.lang.String" itemvalue="Python.irisTest" />
+      <item index="4" class="java.lang.String" itemvalue="Python.fusion_test" />
     </list>
     <recent_temporary>
-      <list size="4">
-        <item index="0" class="java.lang.String" itemvalue="Python.BinaryFusion" />
-        <item index="1" class="java.lang.String" itemvalue="Python.fusion" />
-        <item index="2" class="java.lang.String" itemvalue="Python.zoo" />
-        <item index="3" class="java.lang.String" itemvalue="Python.codetest" />
+      <list size="5">
+        <item index="0" class="java.lang.String" itemvalue="Python.fusion_test" />
+        <item index="1" class="java.lang.String" itemvalue="Python.zoo" />
+        <item index="2" class="java.lang.String" itemvalue="Python.irisTest" />
+        <item index="3" class="java.lang.String" itemvalue="Python.machinefusion" />
+        <item index="4" class="java.lang.String" itemvalue="Python.BinaryFusion" />
       </list>
     </recent_temporary>
   </component>
@@ -408,35 +509,59 @@
       <created>1416931240889</created>
       <updated>1416931240889</updated>
     </task>
+<<<<<<< Updated upstream
     <task id="LOCAL-00003" summary="Fusion code and few changes in GSOM">
       <created>1416966550322</created>
       <updated>1416966550322</updated>
     </task>
     <option name="localTasksCounter" value="4" />
+=======
+    <task id="LOCAL-00003" summary="refactoring machine fusion">
+      <created>1417109457660</created>
+      <updated>1417109457660</updated>
+    </task>
+    <task id="LOCAL-00004" summary="Added connecting neurons">
+      <created>1417259521539</created>
+      <updated>1417259521539</updated>
+    </task>
+    <task id="LOCAL-00005" summary="Finished binary fusion">
+      <created>1417309151068</created>
+      <updated>1417309151068</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
+>>>>>>> Stashed changes
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="65" y="-4" width="1301" height="772" extended-state="6" />
-    <editor active="true" />
+    <frame x="48" y="-4" width="1319" height="773" extended-state="6" />
+    <editor active="false" />
     <layout>
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.1867794" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.18602885" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
+<<<<<<< Updated upstream
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32886904" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+=======
+      <window_info id="Event Log" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.3317757" sideWeight="0.5003796" order="7" side_tool="true" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.3317757" sideWeight="0.49962035" order="2" side_tool="false" content_ui="tabs" />
+>>>>>>> Stashed changes
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
-      <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+<<<<<<< Updated upstream
       <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+=======
+      <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+>>>>>>> Stashed changes
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
-      <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
+      <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
     </layout>
   </component>
   <component name="Vcs.Log.UiProperties">
@@ -455,8 +580,15 @@
       <TodoPanelSettings />
     </option>
     <MESSAGE value="adding jaccard similarity function" />
+<<<<<<< Updated upstream
     <MESSAGE value="Fusion code and few changes in GSOM" />
     <option name="LAST_COMMIT_MESSAGE" value="Fusion code and few changes in GSOM" />
+=======
+    <MESSAGE value="refactoring machine fusion" />
+    <MESSAGE value="Added connecting neurons" />
+    <MESSAGE value="Finished binary fusion" />
+    <option name="LAST_COMMIT_MESSAGE" value="Finished binary fusion" />
+>>>>>>> Stashed changes
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager />
@@ -526,6 +658,12 @@
           <caret line="42" column="0" selection-start-line="42" selection-start-column="0" selection-end-line="42" selection-end-column="0" />
           <folding>
             <element signature="e#0#52#0" expanded="true" />
+<<<<<<< Updated upstream
+=======
+            <element signature="e#667#881#0" expanded="false" />
+            <element signature="e#951#1130#0" expanded="false" />
+            <element signature="e#1813#2227#0" expanded="false" />
+>>>>>>> Stashed changes
           </folding>
         </state>
       </provider>
@@ -568,6 +706,12 @@
           <caret line="22" column="0" selection-start-line="22" selection-start-column="0" selection-end-line="22" selection-end-column="0" />
           <folding>
             <element signature="e#0#52#0" expanded="true" />
+<<<<<<< Updated upstream
+=======
+            <element signature="e#667#881#0" expanded="false" />
+            <element signature="e#951#1130#0" expanded="false" />
+            <element signature="e#1813#2227#0" expanded="false" />
+>>>>>>> Stashed changes
           </folding>
         </state>
       </provider>
@@ -610,6 +754,12 @@
           <caret line="19" column="38" selection-start-line="19" selection-start-column="38" selection-end-line="19" selection-end-column="38" />
           <folding>
             <element signature="e#0#52#0" expanded="true" />
+<<<<<<< Updated upstream
+=======
+            <element signature="e#667#881#0" expanded="false" />
+            <element signature="e#951#1130#0" expanded="false" />
+            <element signature="e#1813#2227#0" expanded="false" />
+>>>>>>> Stashed changes
           </folding>
         </state>
       </provider>
@@ -830,6 +980,14 @@
         </state>
       </provider>
     </entry>
+    <entry file="file:///usr/local/lib/python2.7/dist-packages/sklearn/utils/validation.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="2357" max-vertical-offset="5265">
+          <caret line="173" column="0" selection-start-line="173" selection-start-column="0" selection-end-line="173" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/codetest.py">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="288">
@@ -838,30 +996,58 @@
         </state>
       </provider>
     </entry>
+<<<<<<< Updated upstream
     <entry file="file://$PROJECT_DIR$/BinaryFusion.py">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="2085">
           <caret line="14" column="42" selection-start-line="14" selection-start-column="42" selection-end-line="14" selection-end-column="42" />
+=======
+    <entry file="file://$PROJECT_DIR$/fusion.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="2130">
+          <caret line="14" column="0" selection-start-line="14" selection-start-column="0" selection-end-line="14" selection-end-column="0" />
+>>>>>>> Stashed changes
           <folding />
         </state>
       </provider>
     </entry>
+<<<<<<< Updated upstream
     <entry file="file://$PROJECT_DIR$/fusion.py">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="2115">
           <caret line="5" column="0" selection-start-line="5" selection-start-column="0" selection-end-line="5" selection-end-column="0" />
+=======
+    <entry file="file://$PROJECT_DIR$/BinaryFusion.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="2145">
+          <caret line="2" column="0" selection-start-line="2" selection-start-column="0" selection-end-line="2" selection-end-column="18" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/irisTest.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="135" max-vertical-offset="540">
+          <caret line="22" column="10" selection-start-line="22" selection-start-column="10" selection-end-line="22" selection-end-column="10" />
+>>>>>>> Stashed changes
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/zoo.py">
       <provider selected="true" editor-type-id="text-editor">
+<<<<<<< Updated upstream
         <state vertical-scroll-proportion="0.0" vertical-offset="780" max-vertical-offset="1275">
           <caret line="52" column="0" selection-start-line="52" selection-start-column="0" selection-end-line="52" selection-end-column="0" />
+=======
+        <state vertical-scroll-proportion="0.0" vertical-offset="3930" max-vertical-offset="6915">
+          <caret line="200" column="0" selection-start-line="200" selection-start-column="0" selection-end-line="200" selection-end-column="0" />
+>>>>>>> Stashed changes
           <folding />
         </state>
       </provider>
     </entry>
+<<<<<<< Updated upstream
     <entry file="file://$PROJECT_DIR$/gsom.py">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="986" max-vertical-offset="6810">
@@ -877,6 +1063,42 @@
           <folding>
             <element signature="e#0#52#0" expanded="true" />
           </folding>
+=======
+    <entry file="file://$PROJECT_DIR$/zoo.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1290">
+          <caret line="2" column="19" selection-start-line="2" selection-start-column="19" selection-end-line="2" selection-end-column="19" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/zoo.data.txt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="1096" max-vertical-offset="1605">
+          <caret line="100" column="38" selection-start-line="100" selection-start-column="38" selection-end-line="100" selection-end-column="38" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/machinefusion.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1770">
+          <caret line="16" column="75" selection-start-line="16" selection-start-column="75" selection-end-line="16" selection-end-column="75" />
+          <folding>
+            <element signature="e#0#52#0" expanded="true" />
+            <element signature="e#667#881#0" expanded="false" />
+            <element signature="e#951#1130#0" expanded="false" />
+            <element signature="e#1813#2227#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/fusion_test.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-1.446524" vertical-offset="841" max-vertical-offset="1215">
+          <caret line="20" column="55" selection-start-line="20" selection-start-column="55" selection-end-line="20" selection-end-column="55" />
+          <folding />
+>>>>>>> Stashed changes
         </state>
       </provider>
     </entry>
