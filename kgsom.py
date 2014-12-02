@@ -217,7 +217,7 @@ class gsomap(object):
         errsq = self.gaus_kern(u,u)+self.gaus_kern(v,v)-2*self.gaus_kern(u,v)
         err = np.sqrt(errsq)
         return err
-    
+
     def create_fused_gsom(self,neuron_map):
         self.map_neurons = {}
         for neu in neuron_map:
