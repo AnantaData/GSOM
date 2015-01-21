@@ -5,6 +5,8 @@ import time
 import numpy as np
 from gsom import gsomap
 import matplotlib.pyplot as plt
+import Refactored_gsom
+
 data = np.loadtxt("zoo.data.txt",dtype=str,delimiter=",")
 
 data = np.array(data)
@@ -18,12 +20,15 @@ print features
 features = features[:,1:].astype(int)
 
 
-
-
 positions = np.ndarray(shape=(101,2))
 st = time.time()
 gmap = gsomap(SP=0.9999,dims=16,nr_s=10,lr_s=0.01,fd=0.999,lrr=0.95)
 gmap.process_batch(features,100)
+
+'''
+gmap = Refactored_gsom.get_gsom(features,spread_factor=0.9999,dim=16,nr_s=10,lr_s=0.01,fd=0.999,lrr=0.95,iterations=100)
+'''
+
 print len(gmap.map_neurons.keys())
 print (" elapsed time : ",(time.time()-st))
 
